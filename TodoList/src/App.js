@@ -14,6 +14,8 @@ function App({ $target, initialState }) {
     onSubmit: (text) => {
       const nextState = [...todoList.state, { text }];
       todoList.setState(nextState);
+
+      setItem('todos', JSON.stringify(nextState));
     },
   });
 
