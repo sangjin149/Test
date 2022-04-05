@@ -3,7 +3,7 @@ import TodoForm from './TodoForm.js';
 import TodoList from './TodoList.js';
 import { setItem } from './storage.js';
 
-function App({ $target, initialState }) {
+export default function App({ $target, initialState }) {
   new Header({
     $target,
     text: 'Simple TODO List',
@@ -14,7 +14,6 @@ function App({ $target, initialState }) {
     onSubmit: (text) => {
       const nextState = [...todoList.state, { text }];
       todoList.setState(nextState);
-
       setItem('todos', JSON.stringify(nextState));
     },
   });
