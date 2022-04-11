@@ -1,10 +1,5 @@
-const solution = (participant, completion) =>
-  failerName(count(participant), count(completion));
-
-const failerName = (participant, completion) =>
-  go(
-    participant,
-    entries,
-    find(([name, count]) => (completion[name] || 0) < count),
-    head,
-  );
+var i = 0;
+for (i = 0; i <= 10; i++) {
+  console.log('br1');
+  console.log('br2');
+}

@@ -1,58 +1,22 @@
 import TodoList from './TodoList.js';
-import TodoComments from './TodoComments.js';
-import { request } from './api.js';
+import TodoForm from './TodoForm.js';
 
-export default function App({ $app }) {
-  this.state = {
-    todos: [],
-    selectedTodo: null,
-    comments: [],
-  };
-
-  this.setState = (nextState) => {
-    this.state = nextState;
-    todoList.setState(this.state.todos);
-    todoComments.setState({
-      selectedTodo: this.state.selectedTodo,
-      comments: this.state.comments,
-    });
-  };
-
-  const todoList = new TodoList({
+export default function App({ $target }) {
+  new TodoForm({
     $target,
-    initialState: this.state.todos,
-    onClick: (id) => {
-      const selectedTodo = this.state.todos.find((todo) => todo.id === id);
-      this.setState({
-        ...this.state,
-        selectedTodo,
-      });
-
-      request('url').then((data) => {
-        this.setState({
-          ...this.state,
-          comments: data,
-        });
-      });
+    onSubmit: (content) => {
+      alert(`${content} 추가처리`);
     },
   });
 
-  const todoComments = new TodoComments({
-    $target: $app,
-    initialState: {
-      selectedTodo: this.state.selectedTodo,
-      comments: this.state.comments,
+  new TodoList({
+    $target,
+    initialState: DUMMY_DATA,
+    onToggle: (id) => {
+      alert(`${id} 토글 예정`);
+    },
+    onRemove: (id) => {
+      alert(`${id} 삭제 예정`);
     },
   });
-
-  const init = () => {
-    request('url').thien((data) => {
-      this.setState({
-        ...this.state,
-        todos: data,
-      });
-    });
-  };
-
-  init();
 }
