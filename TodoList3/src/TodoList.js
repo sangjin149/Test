@@ -23,8 +23,11 @@ export default function TodoList({
   };
 
   this.render = () => {
-    if (Array.isArray(this.state)) {
-      $todo.innerHTML = `
+    if (this.state.length === 0) {
+      $todo.innerHTML = `TODO가 없습니다.`;
+      return;
+    }
+    $todo.innerHTML = `
     <ul>
       ${this.state
         .map(
@@ -38,20 +41,19 @@ export default function TodoList({
     </ul>
     `;
 
-      $todo.addEventListener('click', (e) => {
-        const $li = e.target.closest('.todo-item');
-        if ($li) {
-          const { id } = $li.dataset;
-          const { className } = e.target;
+    $todo.addEventListener('click', (e) => {
+      const $li = e.target.closest('.todo-item');
+      if ($li) {
+        const { id } = $li.dataset;
+        const { className } = e.target;
 
-          if (className === 'remove') {
-            onRemove(id);
-          } else {
-            onToggle(id);
-          }
+        if (className === 'remove') {
+          onRemove(id);
+        } else {
+          onToggle(id);
         }
-      });
-    }
+      }
+    });
   };
 
   this.state = initialState;
